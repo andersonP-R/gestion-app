@@ -2,13 +2,17 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@emotion/react";
 import { lightTheme } from "./themes";
 import "./App.css";
+import { Routing } from "./routes/Routing";
+import { AuthProvider } from "./context";
 
 function App() {
   return (
-    <ThemeProvider theme={lightTheme}>
-      <CssBaseline />
-      <h1>hola</h1>
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider theme={lightTheme}>
+        <CssBaseline />
+        <Routing />
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 
