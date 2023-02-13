@@ -1,4 +1,5 @@
 import { FC, PropsWithChildren, useReducer } from "react";
+import { gestionApi } from "../../api";
 import { IUser } from "../../interfaces";
 import { AuthContext } from "./AuthContext";
 import { authReducer } from "./authReducer";
@@ -16,8 +17,18 @@ const AUTH_INITIAL_STATE: AuthState = {
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE);
 
-  const login = async () => {
-    console.log("done");
+  const login = async (email: string, password: string): Promise<boolean> => {
+    try {
+      const { data } = await gestionApi.post("/auth/sign-in", {
+        email,
+        password,
+      });
+      console.log(data);
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   };
 
   return (

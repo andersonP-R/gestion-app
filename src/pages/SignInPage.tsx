@@ -29,9 +29,9 @@ export const SignInPage: FC = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onLoginUser = async ({ email, password }: FormData) => {
+  const onLoginUser = ({ email, password }: FormData) => {
     console.log(email, password);
-    login();
+    login(email, password);
   };
 
   return (
