@@ -1,12 +1,17 @@
 import { createContext } from "react";
-import { IUser } from "../../interfaces";
+import { INewUser, IUser } from "../../interfaces";
 
 interface ContextProps {
   session: boolean;
   user?: IUser;
 
   //   methods
-  login: (email: string, password: string) => Promise<boolean>;
+  registerUser: (
+    name: string,
+    email: string,
+    password: string
+  ) => Promise<INewUser>;
+  login: (email: string, password: string) => Promise<INewUser>;
 }
 
 export const AuthContext = createContext({} as ContextProps);

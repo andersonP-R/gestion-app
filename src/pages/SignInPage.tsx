@@ -1,10 +1,11 @@
 import { FC, useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
   Box,
   Button,
   Chip,
+  CircularProgress,
   Divider,
   Grid,
   TextField,
@@ -21,7 +22,9 @@ type FormData = {
 
 export const SignInPage: FC = () => {
   const [showError, setShowError] = useState(false);
+  const [isLoggin, setIsLoggin] = useState(false);
   const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -29,9 +32,18 @@ export const SignInPage: FC = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onLoginUser = ({ email, password }: FormData) => {
-    console.log(email, password);
-    login(email, password);
+  const onLoginUser = async ({ email, password }: FormData) => {
+    setIsLoggin(true);
+
+    const { hasError, created } = await login(email, password);
+
+    if (hasError) {
+      setShowError(true);
+      setTimeout(() => setShowError(false), 3000);
+    }
+
+    setIsLoggin(false);
+    if (created) navigate("/dashboard");
   };
 
   return (
@@ -39,7 +51,9 @@ export const SignInPage: FC = () => {
       <Box
         sx={{
           width: 350,
+          height: 380,
           padding: "10px 20px",
+          pt: 6,
         }}
       >
         <Grid container spacing={2}>
@@ -96,6 +110,15 @@ export const SignInPage: FC = () => {
             <Link to="/sign-up">Registrarse</Link>
           </Grid>
         </Grid>
+
+        <Box sx={{ display: "flex", justifyContent: "center", pt: 2 }}>
+          <CircularProgress
+            thickness={2}
+            sx={{
+              display: isLoggin ? "flex" : "none",
+            }}
+          />
+        </Box>
       </Box>
     </form>
   );

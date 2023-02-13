@@ -8,6 +8,11 @@ export const isValidEmail = (email: string): boolean => {
   return !!match;
 };
 
+/**
+ * Check if an email is valid.
+ * @param email
+ * @returns The comparison between a regEx expression and the param (email)
+ */
 export const isEmail = (email: string): string | undefined => {
   return isValidEmail(email) ? undefined : "Correo inválido";
 };

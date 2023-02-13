@@ -5,6 +5,7 @@ export interface IUser {
 }
 
 export interface INewUser {
+  created: boolean;
   hasError: boolean;
   message?: string;
 }
