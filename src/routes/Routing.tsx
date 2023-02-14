@@ -12,8 +12,9 @@ export const Routing = () => {
 
       <Routes>
         {/* home page */}
+        <Route path="/" element={<HomePage />} />
+
         <Route path="/" element={<AuthLayout />}>
-          <Route index element={<HomePage />} />
           <Route path="sign-in" element={<SignInPage />} />
           <Route path="sign-up" element={<SignUpPage />} />
         </Route>

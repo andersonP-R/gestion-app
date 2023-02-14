@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useReducer } from "react";
+import { FC, PropsWithChildren, useEffect, useReducer } from "react";
 import { gestionApi } from "../../api";
 import { INewUser, IUser } from "../../interfaces";
 import { AuthContext } from "./AuthContext";
@@ -17,6 +17,27 @@ const AUTH_INITIAL_STATE: AuthState = {
 
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE);
+
+  useEffect(() => {
+    fetching();
+  }, []);
+
+  const fetching = async () => {
+    const token = Cookies.get("token");
+
+    if (!token) return null;
+
+    const query = await fetch("http://localhost:8080/api/auth/session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    });
+
+    const data = await query.json();
+    dispatch({ type: "[Auth] - Login", payload: data.user });
+  };
 
   const login = async (email: string, password: string): Promise<INewUser> => {
     try {
