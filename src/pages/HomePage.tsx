@@ -27,7 +27,7 @@ export const HomePage = () => {
           <Typography variant="h1" sx={{ marginBottom: 2 }}>
             Bienvenido
           </Typography>
-          <Link to="/sign-in">
+          <Link to="/dashboard">
             <Button>Ingresar</Button>
           </Link>
         </Grid>

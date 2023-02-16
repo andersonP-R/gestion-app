@@ -4,6 +4,7 @@ import { INewUser, IUser } from "../../interfaces";
 interface ContextProps {
   session: boolean;
   user?: IUser;
+  loading: boolean;
 
   //   methods
   registerUser: (
@@ -12,6 +13,7 @@ interface ContextProps {
     password: string
   ) => Promise<INewUser>;
   login: (email: string, password: string) => Promise<INewUser>;
+  logout: () => void;
 }
 
 export const AuthContext = createContext({} as ContextProps);

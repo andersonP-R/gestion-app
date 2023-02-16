@@ -1,6 +1,6 @@
-import { FC, PropsWithChildren, useEffect, useReducer } from "react";
+import { FC, PropsWithChildren, useEffect, useReducer, useState } from "react";
 import { gestionApi } from "../../api";
-import { INewUser, IUser } from "../../interfaces";
+import { INewUser, IUser, IUserSession } from "../../interfaces";
 import { AuthContext } from "./AuthContext";
 import { authReducer } from "./authReducer";
 import Cookies from "js-cookie";
@@ -17,26 +17,37 @@ const AUTH_INITIAL_STATE: AuthState = {
 
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetching();
+    authUser();
   }, []);
 
-  const fetching = async () => {
+  const authUser = async () => {
     const token = Cookies.get("token");
 
-    if (!token) return null;
+    if (!token) return setLoading(false);
 
-    const query = await fetch("http://localhost:8080/api/auth/session", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    });
+    try {
+      const query = await fetch(
+        `${import.meta.env.VITE_APP_API_URL}/auth/session`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
 
-    const data = await query.json();
-    dispatch({ type: "[Auth] - Login", payload: data.user });
+      const data = await query.json();
+
+      dispatch({ type: "[Auth] - Login", payload: data.user });
+      console.log("provider");
+      setLoading(false);
+    } catch (error) {
+      return;
+    }
   };
 
   const login = async (email: string, password: string): Promise<INewUser> => {
@@ -62,6 +73,11 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
         message: "Error on authentication",
       };
     }
+  };
+
+  const logout = () => {
+    Cookies.remove("token");
+    window.location.reload();
   };
 
   const registerUser = async (
@@ -94,7 +110,9 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ ...state, login, registerUser }}>
+    <AuthContext.Provider
+      value={{ ...state, login, logout, registerUser, loading }}
+    >
       {children}
     </AuthContext.Provider>
   );

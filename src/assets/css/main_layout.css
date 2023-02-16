@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    color: #000;
+}
+
+.navbar {
+    height: auto;
+    width: auto;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.aside {
+    width: 280px;
+    height: calc(100vh - 60px);
+    padding: 10px 0;
+    background-color: #ddd;
+}
+
+.outlet{
+    width: 100%;
+    height: calc(100vh - 60px);
+    padding: 20px;
+
+}
+
+.footer{
+    height: 60px;
+    width: 100%;
+    background-color: blue;
+}

@@ -1,24 +1,43 @@
 import { FC, useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import { Box } from "@mui/material";
 import { AuthContext } from "../../context";
-import { Navbar } from "../ui";
+import { Navbar, SideMenu } from "../ui";
+import "../../assets/css/main_layout.css";
 
 export const MainLayout: FC = () => {
-  const { session } = useContext(AuthContext);
+  const { session, loading } = useContext(AuthContext);
 
-  if (!session) return <Navigate to="/sign-in" />;
+  // if (!session) return <Navigate to="/sign-in" />;
+  if (loading) {
+    return <h1>Cargando</h1>;
+  } else {
+    return (
+      <>
+        {session ? (
+          <>
+            <nav className="navbar">
+              <Navbar />
+            </nav>
 
-  return (
-    <>
-      <nav>
-        <Navbar />
-      </nav>
+            <main className="container">
+              <Box sx={{ display: { xs: "none", sm: "flex" } }}>
+                <div className="aside">
+                  <SideMenu />
+                </div>
+              </Box>
 
-      <main>
-        <Outlet />
-      </main>
+              <div className="outlet">
+                <Outlet />
+              </div>
+            </main>
 
-      <footer>{/* footer here! */}</footer>
-    </>
-  );
+            <footer className="footer">footer</footer>
+          </>
+        ) : (
+          <Navigate to="/sign-in" />
+        )}
+      </>
+    );
+  }
 };

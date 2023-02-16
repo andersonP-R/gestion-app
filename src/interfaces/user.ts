@@ -9,3 +9,7 @@ export interface INewUser {
   hasError: boolean;
   message?: string;
 }
+
+export interface IUserSession {
+  isAuthorized: boolean;
+}

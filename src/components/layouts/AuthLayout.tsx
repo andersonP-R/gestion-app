@@ -6,7 +6,7 @@ import { AuthContext } from "../../context";
 export const AuthLayout: FC = () => {
   const { session } = useContext(AuthContext);
 
-  if (session) return <Navigate to="/dashboard" replace />;
+  if (session) return <Navigate to="/dashboard" />;
 
   return (
     <>
