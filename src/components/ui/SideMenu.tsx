@@ -9,9 +9,8 @@ import {
   ListItemText,
   ListSubheader,
 } from "@mui/material";
-import { FaRegCreditCard, FaRoute, FaUsers, FaWrench } from "react-icons/fa";
+import { FaRegCreditCard, FaRoute, FaTools, FaUsers } from "react-icons/fa";
 import { AuthContext } from "../../context";
-import { Typography } from "@mui/material";
 
 export const SideMenu: FC = () => {
   const navigate = useNavigate();
@@ -30,23 +29,24 @@ export const SideMenu: FC = () => {
           General
         </ListSubheader>
 
-        <Divider sx={{ mb: 2 }} />
-
-        <ListItemButton onClick={() => navigateTo("/clients")}>
+        <ListItemButton onClick={() => navigateTo("/dashboard/clients")}>
           <ListItemIcon>
             <FaUsers />
           </ListItemIcon>
           <ListItemText primary={"Clientes"} />
         </ListItemButton>
 
-        <ListItemButton onClick={() => navigateTo("/credits")}>
+        <ListItemButton onClick={() => navigateTo("/dashboard/credits")}>
           <ListItemIcon>
             <FaRegCreditCard />
           </ListItemIcon>
           <ListItemText primary={"Creditos"} />
         </ListItemButton>
 
-        <ListItemButton onClick={() => navigateTo("/routes")} sx={{ mb: 2 }}>
+        <ListItemButton
+          onClick={() => navigateTo("/dashboard/routes")}
+          sx={{ mb: 2 }}
+        >
           <ListItemIcon>
             <FaRoute />
           </ListItemIcon>
@@ -59,13 +59,13 @@ export const SideMenu: FC = () => {
             <ListSubheader
               sx={{ backgroundColor: "#ddd", fontSize: "1.2rem", mb: 1 }}
             >
-              Admin panel
+              Administador
             </ListSubheader>
-            <ListItemButton onClick={() => navigateTo("/admin")}>
+            <ListItemButton onClick={() => navigateTo("/dashboard/admin")}>
               <ListItemIcon>
-                <FaWrench />
+                <FaTools />
               </ListItemIcon>
-              <ListItemText primary={"Admin panel"} />
+              <ListItemText primary={"Panel administrador"} />
             </ListItemButton>
           </>
         )}

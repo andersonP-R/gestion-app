@@ -8,7 +8,6 @@ import "../../assets/css/main_layout.css";
 export const MainLayout: FC = () => {
   const { session, loading } = useContext(AuthContext);
 
-  // if (!session) return <Navigate to="/sign-in" />;
   if (loading) {
     return <h1>Cargando</h1>;
   } else {
@@ -35,7 +34,7 @@ export const MainLayout: FC = () => {
             <footer className="footer">footer</footer>
           </>
         ) : (
-          <Navigate to="/sign-in" />
+          <Navigate replace to="/sign-in" />
         )}
       </>
     );

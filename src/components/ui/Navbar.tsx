@@ -3,12 +3,11 @@ import {
   AppBar,
   Box,
   Button,
-  Grid,
   IconButton,
   Toolbar,
   Typography,
 } from "@mui/material";
-import { FaBars } from "react-icons/fa";
+import { FaBars, FaSignOutAlt } from "react-icons/fa";
 import { AuthContext } from "../../context";
 import { useContext } from "react";
 
@@ -68,7 +67,10 @@ export const Navbar = () => {
           <FaBars />
         </IconButton>
 
-        <Button onClick={handleLogout}>Salir</Button>
+        <IconButton sx={{ color: "#000" }} onClick={handleLogout}>
+          <Typography marginRight={1}>Salir</Typography>
+          <FaSignOutAlt />
+        </IconButton>
       </Toolbar>
     </AppBar>
   );

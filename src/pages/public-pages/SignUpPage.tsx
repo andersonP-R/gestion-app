@@ -11,20 +11,22 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { validations } from "../helpers";
-import { AuthContext } from "../context";
-import { FaTimesCircle } from "react-icons/fa";
+import { validations } from "../../helpers";
+import { AuthContext } from "../../context";
+import { FaRegCheckCircle, FaTimesCircle } from "react-icons/fa";
 
 type FormData = {
+  name: string;
   email: string;
   password: string;
 };
 
-export const SignInPage: FC = () => {
+export const SignUpPage: FC = () => {
   const [showError, setShowError] = useState(false);
-  const [isLoggin, setIsLoggin] = useState(false);
-  const { login } = useContext(AuthContext);
+  const [isCreating, setIsCreating] = useState(false);
+  const [isCreated, setIsCreated] = useState(false);
   const navigate = useNavigate();
+  const { registerUser } = useContext(AuthContext);
 
   const {
     register,
@@ -32,39 +34,58 @@ export const SignInPage: FC = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onLoginUser = async ({ email, password }: FormData) => {
-    setIsLoggin(true);
+  const onRegisterUser = async ({ name, email, password }: FormData) => {
+    setIsCreating(true);
 
-    const { hasError, created } = await login(email, password);
+    const { hasError, created } = await registerUser(name, email, password);
 
     if (hasError) {
       setShowError(true);
       setTimeout(() => setShowError(false), 3000);
     }
 
-    setIsLoggin(false);
-    if (created) navigate("/dashboard");
+    if (created) {
+      setIsCreated(true);
+      navigate("/dashboard");
+    }
+
+    setIsCreating(false);
   };
 
   return (
-    <form onSubmit={handleSubmit(onLoginUser)}>
+    <form onSubmit={handleSubmit(onRegisterUser)}>
       <Box
         sx={{
           width: 350,
-          height: 380,
+          height: 450,
           padding: "10px 20px",
-          pt: 6,
+          pt: 5,
         }}
       >
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Typography variant="h1">Iniciar sesión</Typography>
+            <Typography variant="h1">Registrarse</Typography>
             <Chip
-              label="No reconocemos el usuario / contraseña"
+              label="Usuario ya existe"
               color="error"
               icon={<FaTimesCircle />}
               className="fadeIn"
               sx={{ display: showError ? "flex" : "none" }}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              type="text"
+              label="Nombre"
+              variant="filled"
+              fullWidth
+              {...register("name", {
+                required: "Este campo es requerido",
+                minLength: { value: 3, message: "Mínimo 3 caracteres" },
+              })}
+              error={!!errors.name}
+              helperText={errors.name?.message}
             />
           </Grid>
 
@@ -76,6 +97,7 @@ export const SignInPage: FC = () => {
               fullWidth
               {...register("email", {
                 required: "Este campo es requerido",
+                // arreglar validacion - ux experience
                 validate: validations.isEmail,
               })}
               error={!!errors.email}
@@ -107,7 +129,7 @@ export const SignInPage: FC = () => {
           </Grid>
 
           <Grid item xs={12} display="flex" justifyContent="end">
-            <Link to="/sign-up">Registrarse</Link>
+            <Link to="/sign-in">Ya tengo una cuenta</Link>
           </Grid>
         </Grid>
 
@@ -115,8 +137,18 @@ export const SignInPage: FC = () => {
           <CircularProgress
             thickness={2}
             sx={{
-              display: isLoggin ? "flex" : "none",
+              display: isCreating ? "flex" : "none",
             }}
+          />
+        </Box>
+
+        <Box sx={{ display: "flex", justifyContent: "center", pt: 2 }}>
+          <Chip
+            label="Acción existosa"
+            color="success"
+            icon={<FaRegCheckCircle />}
+            className="fadeIn"
+            sx={{ display: isCreated ? "flex" : "none" }}
           />
         </Box>
       </Box>
