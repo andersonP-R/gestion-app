@@ -1,15 +1,15 @@
-import CssBaseline from "@mui/material/CssBaseline";
+import { Suspense } from "react";
 import { ThemeProvider } from "@emotion/react";
+import CssBaseline from "@mui/material/CssBaseline";
 import { lightTheme } from "./themes";
 import { Routing } from "./routes/Routing";
 import { AuthProvider } from "./context";
-import "./App.css";
-import { Suspense } from "react";
 import { FullScreenLoader } from "./components/ui";
+import "./App.css";
 
 function App() {
   return (
-    <Suspense fallback={<h1>Cargando</h1>}>
+    <Suspense fallback={<FullScreenLoader />}>
       <AuthProvider>
         <ThemeProvider theme={lightTheme}>
           <CssBaseline />
