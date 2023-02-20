@@ -1,12 +1,14 @@
-import { Box } from "@mui/material";
 import { FC, useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import { Box } from "@mui/material";
 import { AuthContext } from "../../context";
+import { useSession } from "../../hooks";
 
-export const AuthLayout: FC = () => {
-  const { session } = useContext(AuthContext);
+const AuthLayout: FC = () => {
+  const { user } = useContext(AuthContext);
+  // const { isAuth } = useSession();
 
-  if (session) return <Navigate to="/dashboard" />;
+  if (user) return <Navigate replace to="/dashboard" />;
 
   return (
     <>
@@ -23,3 +25,5 @@ export const AuthLayout: FC = () => {
     </>
   );
 };
+
+export default AuthLayout;

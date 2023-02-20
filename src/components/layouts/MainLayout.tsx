@@ -3,40 +3,37 @@ import { Navigate, Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
 import { AuthContext } from "../../context";
 import { Navbar, SideMenu } from "../ui";
+import { useSession } from "../../hooks";
 import "../../assets/css/main_layout.css";
 
-export const MainLayout: FC = () => {
-  const { session, loading } = useContext(AuthContext);
+const MainLayout: FC = () => {
+  const { user } = useContext(AuthContext);
+  // const { isAuth } = useSession();
 
-  if (loading) {
-    return <h1>Cargando</h1>;
-  } else {
-    return (
-      <>
-        {session ? (
-          <>
-            <nav className="navbar">
-              <Navbar />
-            </nav>
+  // if (!isAuth) return <Navigate replace to="/sign-in" />;
+  if (!user) return <Navigate replace to="/sign-in" />;
 
-            <main className="container">
-              <Box sx={{ display: { xs: "none", sm: "flex" } }}>
-                <div className="aside">
-                  <SideMenu />
-                </div>
-              </Box>
+  return (
+    <>
+      <nav className="navbar">
+        <Navbar />
+      </nav>
 
-              <div className="outlet">
-                <Outlet />
-              </div>
-            </main>
+      <main className="container">
+        <Box sx={{ display: { xs: "none", sm: "flex" } }}>
+          <div className="aside">
+            <SideMenu />
+          </div>
+        </Box>
 
-            <footer className="footer">footer</footer>
-          </>
-        ) : (
-          <Navigate replace to="/sign-in" />
-        )}
-      </>
-    );
-  }
+        <div className="outlet">
+          <Outlet />
+        </div>
+      </main>
+
+      {/* <footer className="footer">footer</footer> */}
+    </>
+  );
 };
+
+export default MainLayout;
