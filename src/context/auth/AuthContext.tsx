@@ -4,7 +4,6 @@ import { INewUser, IUser } from "../../interfaces";
 interface ContextProps {
   session: boolean;
   user?: IUser;
-  loading: boolean;
 
   //   methods
   registerUser: (
