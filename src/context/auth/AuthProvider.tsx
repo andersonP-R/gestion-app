@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useEffect, useReducer } from "react";
+import { FC, PropsWithChildren, useEffect, useReducer, useState } from "react";
 import Cookies from "js-cookie";
 import { gestionApi } from "../../api";
 import { INewUser, IUser } from "../../interfaces";
@@ -17,6 +17,7 @@ const AUTH_INITIAL_STATE: AuthState = {
 
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE);
+  const [loadingUser, setLoadingUser] = useState(false);
   const token = Cookies.get("token");
 
   useEffect(() => {
@@ -24,7 +25,8 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   }, []);
 
   const authUser = async () => {
-    if (!token) return null;
+    setLoadingUser(true);
+    if (!token) return setLoadingUser(false);
 
     try {
       const query = await fetch(
@@ -39,9 +41,10 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
       );
 
       const data = await query.json();
-
       dispatch({ type: "[Auth] - Login", payload: data.user });
+      setLoadingUser(false);
     } catch (error) {
+      setLoadingUser(false);
       return null;
     }
   };
@@ -106,7 +109,16 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ ...state, login, logout, registerUser }}>
+    <AuthContext.Provider
+      value={{
+        ...state,
+        login,
+        logout,
+        registerUser,
+        loadingUser,
+        setLoadingUser,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
