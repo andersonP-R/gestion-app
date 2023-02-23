@@ -1,6 +1,6 @@
-import { Card, CardActionArea, Grid, Typography } from "@mui/material";
 import { FC, PropsWithChildren } from "react";
 import { useNavigate } from "react-router-dom";
+import { Card, CardActionArea, Grid, Typography } from "@mui/material";
 
 interface Props {
   children: React.ReactNode;
