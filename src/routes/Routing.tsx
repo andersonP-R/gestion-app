@@ -1,5 +1,6 @@
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { AdminLayout, AuthLayout, MainLayout } from "../components/layouts";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AuthLayout } from "../components/layouts";
+import { AuthGuard } from "../guards";
 import {
   AdminPage,
   BasesAdminPage,
@@ -27,14 +28,14 @@ export const Routing = () => {
         </Route>
 
         {/* DASHBOARD SECTION - PRIVATE*/}
-        <Route path="/dashboard" element={<MainLayout />}>
-          <Route index element={<DashboardPage />} />
-          <Route path="clients" element={<ClientsPage />} />
-          <Route path="credits" element={<CreditsPage />} />
-          <Route path="routes" element={<RoutesPage />} />
+        <Route element={<AuthGuard />}>
+          <Route path="/dashboard">
+            <Route index element={<DashboardPage />} />
+            <Route path="clients" element={<ClientsPage />} />
+            <Route path="credits" element={<CreditsPage />} />
+            <Route path="routes" element={<RoutesPage />} />
 
-          {/* ADMIN PANEL SECTION - PRIVATE*/}
-          <Route element={<AdminLayout />}>
+            {/* ADMIN SECTION - PRIVATE*/}
             <Route path="admin" element={<AdminPage />} />
             <Route path="admin/bases" element={<BasesAdminPage />} />
             <Route path="admin/routes" element={<RoutesAdminPage />} />
