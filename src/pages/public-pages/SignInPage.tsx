@@ -43,7 +43,7 @@ export const SignInPage: FC = () => {
     }
 
     setIsLoggin(false);
-    if (created) navigate("/dashboard");
+    if (created) navigate("/dashboard", { replace: true });
   };
 
   return (

@@ -46,7 +46,7 @@ export const SignUpPage: FC = () => {
 
     if (created) {
       setIsCreated(true);
-      navigate("/dashboard");
+      navigate("/dashboard", { replace: true });
     }
 
     setIsCreating(false);

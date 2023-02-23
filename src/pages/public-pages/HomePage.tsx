@@ -1,8 +1,16 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, Navigate, useParams } from "react-router-dom";
+import { Box, Button, CircularProgress, Grid, Typography } from "@mui/material";
+import { AuthContext } from "../../context";
 
 export const HomePage = () => {
-  return (
+  const { user, loadingUser } = useContext(AuthContext);
+
+  // TODO: fix request url
+  // const route = useParams();
+  // console.log(route);
+
+  return !user ? (
     <Box
       sx={{
         width: "100%",
@@ -27,11 +35,18 @@ export const HomePage = () => {
           <Typography variant="h1" sx={{ marginBottom: 2 }}>
             Bienvenido
           </Typography>
-          <Link to="/dashboard">
-            <Button>Ingresar</Button>
-          </Link>
+
+          {loadingUser ? (
+            <CircularProgress thickness={2} />
+          ) : (
+            <Link to="/sign-in">
+              <Button>Ingresar</Button>
+            </Link>
+          )}
         </Grid>
       </Grid>
     </Box>
+  ) : (
+    <Navigate replace to="/dashboard" />
   );
 };
