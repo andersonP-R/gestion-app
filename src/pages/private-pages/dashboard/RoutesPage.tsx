@@ -1,3 +1,9 @@
+import { DashboardLayout } from "../../../components/layouts";
+
 export const RoutesPage = () => {
-  return <div>RoutesPage</div>;
+  return (
+    <DashboardLayout title={"Rutas disponibles"}>
+      <p>This is the credist page </p>
+    </DashboardLayout>
+  );
 };
