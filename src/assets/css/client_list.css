@@ -1,0 +1,89 @@
+/*  ------------------------------- DATA TABLE ------------------------------------------- */
+.table_main_container{
+    height: 70vh;
+    overflow-x: scroll;
+    scrollbar-width: thin;
+    scrollbar-color:  #afafaf #f2f2f2;
+    background-color: #eee;
+    margin-bottom: 40px;
+    border: 1px solid #000;
+
+}
+
+.table_main_container_search {
+    height: auto;
+
+}
+
+.table {
+    color: #000;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.table_header{
+    position: sticky;
+    top: 0;
+    background-color: #9f9ffa;
+}
+
+.table_header_cols th{
+    padding: 15px 5px;
+}
+
+/* ---------------------------------- HEAD ROWS ----------------------------------------------- */
+.th_col{
+    text-align: start;
+}
+
+.name {
+    min-width: 250px;
+}
+
+.status {
+ 
+    min-width: 100px;
+}
+
+.idNumber {
+
+    min-width: 150px;
+}
+
+.route {
+    min-width: 120px;
+}
+
+.credits {
+    min-width: 100px;
+}
+
+.phone{
+    min-width: 150px;
+}
+
+.address{
+    min-width: 180px;
+}
+
+.neighb{
+    min-width: 190px;
+}
+
+/* -------------------------------------- BODY ROWS - CLIENTS ------------------------------------- */
+
+.table_body{
+    overflow-y: scroll;
+
+}
+
+.table_body .tb_client{
+    padding: 20px 5px;
+    border-bottom: 1px solid #000;
+
+}
+
+.tb_client:hover{
+    background-color: #ddd;
+    cursor: pointer;
+}
