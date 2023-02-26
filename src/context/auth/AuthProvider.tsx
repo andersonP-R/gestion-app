@@ -75,6 +75,7 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   const logout = () => {
+    dispatch({ type: "[Auth] - logout" });
     Cookies.remove("token");
     window.location.reload();
   };
