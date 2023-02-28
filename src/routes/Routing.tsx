@@ -4,6 +4,9 @@ import { AuthGuard } from "../guards";
 import {
   AdminPage,
   BasesAdminPage,
+  ClientCreatePage,
+  ClientPage,
+  ClientSearchPage,
   ClientsPage,
   CreditsPage,
   DashboardPage,
@@ -34,6 +37,10 @@ export const Routing = () => {
             <Route path="clients" element={<ClientsPage />} />
             <Route path="credits" element={<CreditsPage />} />
             <Route path="routes" element={<RoutesPage />} />
+
+            <Route path="clients/:id" element={<ClientPage />} />
+            <Route path="clients/create" element={<ClientCreatePage />} />
+            <Route path="clients/search" element={<ClientSearchPage />} />
 
             {/* ADMIN SECTION - PRIVATE*/}
             <Route path="admin" element={<AdminPage />} />
