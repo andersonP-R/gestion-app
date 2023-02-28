@@ -1,9 +1,7 @@
 import { IClient } from "../../interfaces";
 import { ClientState } from "./ClientProvider";
 
-type ClientActionType =
-  | { type: "[Client] - GetClients"; payload: IClient[] }
-  | { type: "[Client] - logout" };
+type ClientActionType = { type: "[Client] - GetClients"; payload: IClient[] };
 
 export const clientReducer = (
   state: ClientState,
