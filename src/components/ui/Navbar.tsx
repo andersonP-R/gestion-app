@@ -1,4 +1,6 @@
+import { FC, useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../../context";
 import {
   AppBar,
   Box,
@@ -8,10 +10,8 @@ import {
   Typography,
 } from "@mui/material";
 import { FaBars, FaSignOutAlt } from "react-icons/fa";
-import { AuthContext } from "../../context";
-import { useContext } from "react";
 
-export const Navbar = () => {
+export const Navbar: FC = () => {
   const { user, logout } = useContext(AuthContext);
 
   const handleLogout = () => {
@@ -21,7 +21,7 @@ export const Navbar = () => {
   return (
     <AppBar
       sx={{
-        height: "70px",
+        height: "80px",
         width: "100%",
         display: "flex",
         justifyContent: "center",
@@ -44,8 +44,8 @@ export const Navbar = () => {
             <img
               src="/src/assets/images/default-avatar.png"
               alt="img"
-              width={60}
-              height={60}
+              width={45}
+              height={45}
             />
           </Box>
         </NavLink>

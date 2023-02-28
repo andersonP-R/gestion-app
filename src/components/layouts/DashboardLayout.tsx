@@ -4,7 +4,7 @@ import { Navbar, SideMenu } from "../ui";
 import "../../assets/css/main_layout.css";
 
 interface Props {
-  title: string;
+  title?: string;
   children: React.ReactNode;
 }
 

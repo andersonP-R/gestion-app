@@ -9,12 +9,18 @@ import {
   ListItemText,
   ListSubheader,
 } from "@mui/material";
-import { FaRegCreditCard, FaRoute, FaTools, FaUsers } from "react-icons/fa";
+import {
+  FaChartBar,
+  FaRegCreditCard,
+  FaRoute,
+  FaTools,
+  FaUsers,
+} from "react-icons/fa";
 import { AuthContext } from "../../context";
 
 export const SideMenu: FC = () => {
-  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const navigateTo = (url: string) => {
     navigate(url);
@@ -28,6 +34,13 @@ export const SideMenu: FC = () => {
         >
           General
         </ListSubheader>
+
+        <ListItemButton onClick={() => navigateTo("/dashboard")}>
+          <ListItemIcon>
+            <FaChartBar />
+          </ListItemIcon>
+          <ListItemText primary={"Inicio"} />
+        </ListItemButton>
 
         <ListItemButton onClick={() => navigateTo("/dashboard/clients")}>
           <ListItemIcon>
