@@ -1,4 +1,5 @@
 export interface IClient {
+  _id?: string;
   fullName: string;
   ID_number: number;
   address: string;
@@ -7,5 +8,5 @@ export interface IClient {
   TotalCredits: number;
   status: string;
   route: string;
-  isActive: boolean;
+  isActive?: boolean;
 }
