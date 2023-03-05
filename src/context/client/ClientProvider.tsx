@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren, useReducer, useState } from "react";
 import Cookies from "js-cookie";
 import { gestionApi } from "../../api";
-import { IClient } from "../../interfaces";
+import { IClient, IDeleteClient } from "../../interfaces";
 import { clientReducer } from "./clientReducer";
 import { ClientContext } from "./ClientContext";
 
@@ -27,11 +27,36 @@ export const ClientProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   };
 
+  const handleDelete = async (id: string): Promise<IDeleteClient> => {
+    const previosClients = state.clients.map((client) => ({ ...client }));
+    const updatedClients = state.clients.filter((client) => client._id !== id);
+    try {
+      const { data } = await gestionApi.delete(`/clients/${id}`);
+      const { status } = data;
+      if (status === "error") {
+        dispatch({ type: "[Client] - deleteOne", payload: previosClients });
+      }
+
+      dispatch({ type: "[Client] - deleteOne", payload: updatedClients });
+      return {
+        error: false,
+        deleted: true,
+      };
+    } catch (error) {
+      console.log(error);
+      return {
+        error: true,
+        deleted: false,
+      };
+    }
+  };
+
   return (
     <ClientContext.Provider
       value={{
         ...state,
         handleGetClients,
+        handleDelete,
       }}
     >
       {children}

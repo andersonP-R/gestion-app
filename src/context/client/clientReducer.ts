@@ -1,7 +1,9 @@
 import { IClient } from "../../interfaces";
 import { ClientState } from "./ClientProvider";
 
-type ClientActionType = { type: "[Client] - GetClients"; payload: IClient[] };
+type ClientActionType =
+  | { type: "[Client] - GetClients"; payload: IClient[] }
+  | { type: "[Client] - deleteOne"; payload: IClient[] };
 
 export const clientReducer = (
   state: ClientState,
@@ -9,6 +11,12 @@ export const clientReducer = (
 ): ClientState => {
   switch (action.type) {
     case "[Client] - GetClients":
+      return {
+        ...state,
+        clients: action.payload,
+      };
+
+    case "[Client] - deleteOne":
       return {
         ...state,
         clients: action.payload,
