@@ -9,7 +9,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { FaBars, FaSignOutAlt } from "react-icons/fa";
+import { FaBars, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 
 export const Navbar: FC = () => {
   const { user, logout } = useContext(AuthContext);
@@ -30,27 +30,12 @@ export const Navbar: FC = () => {
     >
       <Toolbar>
         <NavLink to="/">
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "50px",
-              height: "50px",
-              borderRadius: "50%",
-              overflow: "hidden",
-            }}
-          >
-            <img
-              src="/src/assets/images/default-avatar.png"
-              alt="img"
-              width={45}
-              height={45}
-            />
+          <Box sx={{ fontSize: "2rem", pt: 1, color: "#0d3ca0" }}>
+            <FaUserCircle />
           </Box>
         </NavLink>
 
-        <Box sx={{ ml: 2 }}>
+        <Box sx={{ ml: 1 }}>
           <Typography variant="subtitle1" color="#000">
             {user?.name}
           </Typography>
