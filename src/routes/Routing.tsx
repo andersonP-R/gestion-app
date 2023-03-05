@@ -5,6 +5,7 @@ import {
   AdminPage,
   BasesAdminPage,
   ClientCreatePage,
+  ClientEditPage,
   ClientPage,
   ClientSearchPage,
   ClientsPage,
@@ -39,6 +40,7 @@ export const Routing = () => {
             <Route path="routes" element={<RoutesPage />} />
 
             <Route path="clients/:id" element={<ClientPage />} />
+            <Route path="clients/edit/:id" element={<ClientEditPage />} />
             <Route path="clients/create" element={<ClientCreatePage />} />
             <Route path="clients/search" element={<ClientSearchPage />} />
 
