@@ -1,9 +1,11 @@
 import { FC } from "react";
-import { IClient } from "../../../interfaces";
-import "../../../assets/css/client_list.css";
+import { Link, useNavigate } from "react-router-dom";
 import { IconButton, Tooltip } from "@mui/material";
 import { FaEye, FaTrashAlt, FaUserEdit } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { IClient } from "../../../interfaces";
+import { ClientContext } from "../../../context";
+import "../../../assets/css/client_list.css";
+import { ClientDeleteCompont } from "./ClientDeleteCompont";
 
 interface Props {
   clients: IClient[];
@@ -69,11 +71,7 @@ export const ClientList: FC<Props> = ({ clients }) => {
                 </Tooltip>
               </td>
               <td className="tb_client tb_delete">
-                <Tooltip title="Borrar">
-                  <IconButton>
-                    <FaTrashAlt />
-                  </IconButton>
-                </Tooltip>
+                <ClientDeleteCompont client={client} />
               </td>
             </tr>
           ))}
