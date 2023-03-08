@@ -1,1 +1,2 @@
-export * from "./addClientComponentStyles";
+export * from "./ClientPageStyles";
+export * from "./ClientDeleteCompontStyls";
